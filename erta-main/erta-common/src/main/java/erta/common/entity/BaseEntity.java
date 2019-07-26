@@ -1,6 +1,7 @@
 package erta.common.entity;
 
 import java.io.Serializable;
+import java.time.LocalDateTime;
 
 import javax.persistence.Column;
 import javax.persistence.GeneratedValue;
@@ -9,6 +10,8 @@ import javax.persistence.Id;
 import javax.persistence.MappedSuperclass;
 import javax.persistence.Version;
 
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 import org.springframework.data.annotation.CreatedBy;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedBy;
@@ -29,13 +32,15 @@ public class BaseEntity implements Serializable {
 	/*
 	 * https://www.baeldung.com/database-auditing-jpa
 	 */
-	@Column(name = "created_date", nullable = false, updatable = false)
+	@Column(name = "created_date", nullable = false, updatable = false, columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
 	@CreatedDate
-	private long createdDate;
+	@CreationTimestamp
+	private LocalDateTime createdDate;
 
-	@Column(name = "modified_date")
+	@Column(name = "modified_date", columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
 	@LastModifiedDate
-	private long modifiedDate;
+	@UpdateTimestamp
+	private LocalDateTime modifiedDate;
 
 	@Column(name = "created_by")
 	@CreatedBy
@@ -64,19 +69,19 @@ public class BaseEntity implements Serializable {
 		this.version = version;
 	}
 
-	public long getCreatedDate() {
+	public LocalDateTime getCreatedDate() {
 		return createdDate;
 	}
 
-	public void setCreatedDate(long createdDate) {
+	public void setCreatedDate(LocalDateTime createdDate) {
 		this.createdDate = createdDate;
 	}
 
-	public long getModifiedDate() {
+	public LocalDateTime getModifiedDate() {
 		return modifiedDate;
 	}
 
-	public void setModifiedDate(long modifiedDate) {
+	public void setModifiedDate(LocalDateTime modifiedDate) {
 		this.modifiedDate = modifiedDate;
 	}
 

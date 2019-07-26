@@ -52,7 +52,7 @@ public class AppConfigUtil implements EnvironmentAware {
 
 	public String getServicesWFActivitiesCSV(String processorContext, String processorName) {
 
-		String wfActivitiesCSVPropBaseKey = processorContext + ".workflows";
+		String wfActivitiesCSVPropBaseKey = processorContext + ".workflows.tasks";
 
 		String wfActivitiesCSVPropKey = wfActivitiesCSVPropBaseKey + "." + processorName;
 		if (!this.environment.containsProperty(wfActivitiesCSVPropKey)) {

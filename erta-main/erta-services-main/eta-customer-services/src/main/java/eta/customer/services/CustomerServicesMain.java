@@ -15,7 +15,7 @@ import erta.common.constants.AppServiceConstants;
 
 @SpringBootApplication
 @EnableConfigurationProperties
-@EntityScan(basePackages = "erta.common.domain.customer")
+@EntityScan(basePackages = "erta.common.entity.customer")
 @Import(AppConfigUtil.class)
 @ImportResource({ "classpath*:application-CustomerServices-SpringCtx.xml" })
 public class CustomerServicesMain {

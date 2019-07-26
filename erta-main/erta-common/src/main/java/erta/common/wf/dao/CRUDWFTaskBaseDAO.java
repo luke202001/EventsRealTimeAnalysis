@@ -2,6 +2,7 @@ package erta.common.wf.dao;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -17,35 +18,32 @@ import erta.common.wf.api.WFResult;
 import erta.common.wf.api.WFTask;
 
 @NoRepositoryBean
-public abstract class CRUDWFTaskBaseDAO<C extends WFCtxInfo, E extends BaseEntity, R extends AppCtxResponseInfo>
-		implements WFTask<C>, AppCrudDAO<C, E, R> {
+public interface CRUDWFTaskBaseDAO<C extends WFCtxInfo, E extends BaseEntity, R extends AppCtxResponseInfo>
+		extends WFTask<C>, AppCrudDAO<C, E, R> {
 
-	private static final Logger LOGGER = LoggerFactory.getLogger(CRUDWFTaskBaseDAO.class);
-
-	public CRUDWFTaskBaseDAO() {
-	}
+	public static final Logger LOGGER = LoggerFactory.getLogger(CRUDWFTaskBaseDAO.class);
 
 	@Override
 	@SuppressWarnings("unchecked")
-	public WFResult executeTask(C wfCtxInfo) {
+	default WFResult executeTask(C wfCtxInfo) {
 		LOGGER.debug("Enter EntityCRUDType " + wfCtxInfo.getEntityCRUDType());
 
 		WFResult result = WFResult.NOT_PROCESSED;
-		E savedOrUpdatedEntity = null;
+		EntityViewInfo<E> entityViewInfo = new EntityViewInfo<E>();
 
 		switch (wfCtxInfo.getEntityCRUDType()) {
 		case EntityConstants.ENTITY_TRANSAC_TYPE_CREATE:
 
-			savedOrUpdatedEntity = this.save((E) wfCtxInfo.getEntityInfo());
-			wfCtxInfo.addEntityInfo(savedOrUpdatedEntity);
+			E savedEntity = this.save((E) wfCtxInfo.getEntityInfo());
+			wfCtxInfo.addEntityInfo(savedEntity);
 
 			result = WFResult.SUCCESS;
 
 			break;
 		case EntityConstants.ENTITY_TRANSAC_TYPE_UPDATE:
 
-			savedOrUpdatedEntity = this.save((E) wfCtxInfo.getEntityInfo());
-			wfCtxInfo.addEntityInfo(savedOrUpdatedEntity);
+			E updatedEntity = this.save((E) wfCtxInfo.getEntityInfo());
+			wfCtxInfo.addEntityInfo(updatedEntity);
 
 			result = WFResult.SUCCESS;
 
@@ -58,22 +56,26 @@ public abstract class CRUDWFTaskBaseDAO<C extends WFCtxInfo, E extends BaseEntit
 			break;
 		case EntityConstants.ENTITY_TRANSAC_TYPE_GET:
 
-			savedOrUpdatedEntity = this.findById(wfCtxInfo.getEntityId()).get();
-			wfCtxInfo.addEntityInfo(savedOrUpdatedEntity);
+			Optional<E> dbObject = this.findById(wfCtxInfo.getEntityId());
+
+			if (dbObject.isPresent()) {
+
+				E dbEntity = this.findById(wfCtxInfo.getEntityId()).get();
+				entityViewInfo.setEventInfo(dbEntity);
+			}
 
 			result = WFResult.SUCCESS;
 			break;
 		case EntityConstants.ENTITY_TRANSAC_TYPE_GET_ALL:
 
-			Iterable<BaseEntity> allRows = (Iterable<BaseEntity>) this.findAll();
+			Iterable<E> allRows = (Iterable<E>) this.findAll();
 
-			List<BaseEntity> allEntities = new ArrayList<>();
+			List<E> allEntities = new ArrayList<>();
 			allRows.forEach(allEntities::add);
 
-			EntityViewInfo<BaseEntity> ctxResponseInfo = new EntityViewInfo<>();
-			ctxResponseInfo.setEventInfos(allEntities);
+			entityViewInfo.setEventInfos(allEntities);
 
-			wfCtxInfo.addEntityViewInfo(ctxResponseInfo);
+			wfCtxInfo.addEntityViewInfo(entityViewInfo);
 
 			result = WFResult.SUCCESS;
 
@@ -81,6 +83,8 @@ public abstract class CRUDWFTaskBaseDAO<C extends WFCtxInfo, E extends BaseEntit
 		default:
 			break;
 		}
+
+		wfCtxInfo.addEntityViewInfo(entityViewInfo);
 
 		LOGGER.debug("Exit");
 		return result;

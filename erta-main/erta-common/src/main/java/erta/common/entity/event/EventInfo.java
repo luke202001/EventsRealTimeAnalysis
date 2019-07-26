@@ -1,12 +1,11 @@
 package erta.common.entity.event;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.OneToMany;
+import javax.persistence.FetchType;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import erta.common.entity.BaseEntity;
@@ -29,8 +28,9 @@ public class EventInfo extends BaseEntity {
 	@Column(name = "status", nullable = false)
 	private String status;
 
-	@OneToMany(mappedBy = "event_schedule_info", cascade = CascadeType.ALL, orphanRemoval = true)
-	private List<EventScheduleInfo> comments = new ArrayList<>();
+	@OneToOne(cascade = CascadeType.REMOVE, fetch = FetchType.LAZY)
+	@JoinColumn(name = "schedule_info_id", nullable = true)
+	private EventScheduleInfo eventScheduleInfo;
 
 	public String getName() {
 		return name;
@@ -54,6 +54,22 @@ public class EventInfo extends BaseEntity {
 
 	public void setStatus(String status) {
 		this.status = status;
+	}
+
+	public Long getCustomerId() {
+		return customerId;
+	}
+
+	public void setCustomerId(Long customerId) {
+		this.customerId = customerId;
+	}
+
+	public EventScheduleInfo getEventScheduleInfo() {
+		return eventScheduleInfo;
+	}
+
+	public void setEventScheduleInfo(EventScheduleInfo eventScheduleInfo) {
+		this.eventScheduleInfo = eventScheduleInfo;
 	}
 
 }

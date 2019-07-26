@@ -12,8 +12,8 @@ public class CustomerInfo extends BaseEntity {
 
 	private static final long serialVersionUID = 1L;
 
-	@Column(name = "contact_user_id", nullable = false)
-	private Long contactUserId;
+	@Column(name = "user_id", nullable = true)
+	private Long userId;
 
 	@Column(name = "name", nullable = false, unique = true)
 	private String name;
@@ -22,14 +22,6 @@ public class CustomerInfo extends BaseEntity {
 	private String customerTYpe;
 
 	public CustomerInfo() {
-	}
-
-	public Long getContactUserId() {
-		return contactUserId;
-	}
-
-	public void setContactUserId(Long contactUserId) {
-		this.contactUserId = contactUserId;
 	}
 
 	public String getName() {

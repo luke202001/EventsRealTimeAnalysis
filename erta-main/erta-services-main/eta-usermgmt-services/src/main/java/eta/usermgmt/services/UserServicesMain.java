@@ -12,7 +12,7 @@ import erta.common.constants.AppServiceConstants;
 
 @SpringBootApplication
 @EnableConfigurationProperties
-@EntityScan(basePackages = "erta.common.domain.user")
+@EntityScan(basePackages = "erta.common.entity.user")
 @Import(AppConfigUtil.class)
 @ImportResource({ "classpath*:application-UserServices-SpringCtx.xml" })
 public class UserServicesMain {
