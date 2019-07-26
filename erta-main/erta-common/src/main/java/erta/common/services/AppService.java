@@ -1,4 +1,4 @@
-package erta.common.services.event;
+package erta.common.services;
 
 import erta.common.dto.AppCtxRequestInfo;
 import erta.common.dto.AppCtxResponseInfo;
