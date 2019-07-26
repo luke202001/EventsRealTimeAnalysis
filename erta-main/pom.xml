@@ -124,5 +124,6 @@
 		<module>erta-global-config</module>
 		<module>erta-common</module>
 		<module>erta-services-main</module>
+		<module>erta-ui-main</module>
 	</modules>
 </project>

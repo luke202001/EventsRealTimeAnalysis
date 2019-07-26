@@ -9,6 +9,8 @@ public class AppServiceConstants {
 	public static final String SERVICES_EVENTS_NAME = "EventsServices";
 	public static final String SERVICES_CUSTOMER_NAME = "CustomerServices";
 	public static final String SERVICES_USER_NAME = "UserServices";
+	public static final String UI_WEB_ANGULAR_APP_NAME = "UiWebAngular";
+	public static final String UI_BACKEND_APP_NAME = "UiBackend";
 
 	public static final String BEAN_ID_EVENTS_SERVICES_IMPL = "EventsServiceImpl";
 	public static final String BEAN_ID_CUSTOMER_SERVICES_IMPL = "CustomerServiceImpl";
