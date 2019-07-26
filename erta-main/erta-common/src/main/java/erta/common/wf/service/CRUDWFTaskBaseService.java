@@ -5,7 +5,7 @@ import org.slf4j.LoggerFactory;
 
 import erta.common.constants.EntityConstants;
 import erta.common.entity.BaseEntity;
-import erta.common.services.event.AppService;
+import erta.common.services.AppService;
 import erta.common.wf.api.WFCtxInfo;
 import erta.common.wf.api.WFResult;
 import erta.common.wf.api.WFTask;

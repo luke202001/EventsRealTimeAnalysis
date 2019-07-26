@@ -6,6 +6,7 @@ import java.util.Map;
 
 import erta.common.dto.AppCtxRequestInfo;
 import erta.common.dto.AppCtxResponseInfo;
+import erta.common.dto.EntityViewInfo;
 import erta.common.entity.BaseEntity;
 
 public class WFCtxInfo extends AppCtxRequestInfo implements Serializable {
@@ -46,12 +47,13 @@ public class WFCtxInfo extends AppCtxRequestInfo implements Serializable {
 		return (BaseEntity) this.getCtxData(KEY_CTX_BASE_ENTITY_INFO);
 	}
 
-	public void addEntityViewInfo(AppCtxResponseInfo val) {
+	public void addEntityViewInfo(@SuppressWarnings("rawtypes") EntityViewInfo val) {
 		this.putCtxData(KEY_CTX_BASE_ENTITY_VIEW_INFO, val);
 	}
 
-	public AppCtxResponseInfo getEntityViewInfo() {
-		return (AppCtxResponseInfo) this.getCtxData(KEY_CTX_BASE_ENTITY_VIEW_INFO);
+	@SuppressWarnings("rawtypes")
+	public EntityViewInfo getEntityViewInfo() {
+		return (EntityViewInfo) this.getCtxData(KEY_CTX_BASE_ENTITY_VIEW_INFO);
 	}
 
 	public void addEntityId(Long val) {
