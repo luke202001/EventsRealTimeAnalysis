@@ -1,0 +1,12 @@
+version: '3'
+
+services:
+
+	erta-user-services:
+		hostname: erta-user-services
+    	container_name: erta-user-services
+    	image: 'erta/erta-user-services:latest'
+    	ports:
+      		- "8181:8181"
+    	depends_on:
+      		- mysql-db

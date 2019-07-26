@@ -1,4 +1,4 @@
-package eta.customer.services.web;
+package eta.usermgmt.services.web;
 
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -7,12 +7,12 @@ import erta.common.constants.AppServiceConstants;
 import erta.common.wf.controller.CRUDWFBaseController;
 
 @RestController
-@RequestMapping("/api/customer-services")
+@RequestMapping("/api/user-services")
 
-public class CustomerController extends CRUDWFBaseController {
+public class UserController extends CRUDWFBaseController {
 
-	public CustomerController() {
-		super(AppServiceConstants.SERVICES_CUSTOMER_NAME);
+	public UserController() {
+		super(AppServiceConstants.SERVICES_USER_NAME);
 	}
 
 }

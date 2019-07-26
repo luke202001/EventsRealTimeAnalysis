@@ -1,0 +1,13 @@
+version: '3'
+
+services:
+
+  mysql-db:
+    image: mysql:5.7
+    container_name: ERTAMySQL
+    restart: always
+    environment:
+       MYSQL_ALLOW_EMPTY_PASSWORD: 'yes'
+    ports:
+      - 3306:3306
+    

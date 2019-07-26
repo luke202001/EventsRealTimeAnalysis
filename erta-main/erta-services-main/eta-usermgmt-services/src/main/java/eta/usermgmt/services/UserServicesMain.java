@@ -1,7 +1,4 @@
-/**
- * 
- */
-package erta.events.app;
+package eta.usermgmt.services;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -15,22 +12,18 @@ import erta.common.constants.AppServiceConstants;
 
 @SpringBootApplication
 @EnableConfigurationProperties
-@EntityScan(basePackages = "erta.common")
+@EntityScan(basePackages = "erta.common.domain.user")
 @Import(AppConfigUtil.class)
-@ImportResource({ "classpath*:application-EventsApp-SpringCtx.xml" })
-public class EventsAppMain {
-
-	public EventsAppMain() {
-	}
+@ImportResource({ "classpath*:application-UserServices-SpringCtx.xml" })
+public class UserServicesMain {
 
 	public static void main(String[] args) {
 
-		SpringApplication app = new SpringApplication(EventsAppMain.class);
+		SpringApplication app = new SpringApplication(UserServicesMain.class);
 		app.setAdditionalProfiles(
-				AppServiceConstants.buildAppServicesSpringActiveProfiles(AppServiceConstants.SERVICES_EVENTS_NAME));
+				AppServiceConstants.buildAppServicesSpringActiveProfiles(AppServiceConstants.SERVICES_USER_NAME));
 
 		app.run(args);
-
 	}
 
 }

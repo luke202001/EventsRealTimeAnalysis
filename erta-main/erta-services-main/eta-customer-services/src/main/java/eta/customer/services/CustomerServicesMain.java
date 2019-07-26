@@ -27,7 +27,7 @@ public class CustomerServicesMain {
 
 		SpringApplication app = new SpringApplication(CustomerServicesMain.class);
 		app.setAdditionalProfiles(
-				AppServiceConstants.buildAppServicesSpringActiveProfiles(AppServiceConstants.SERVICES_EVENTS_NAME));
+				AppServiceConstants.buildAppServicesSpringActiveProfiles(AppServiceConstants.SERVICES_CUSTOMER_NAME));
 
 		app.run(args);
 	}
