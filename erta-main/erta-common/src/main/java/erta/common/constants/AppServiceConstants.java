@@ -6,7 +6,13 @@ import java.util.stream.Stream;
 
 public class AppServiceConstants {
 
-	public static final String EVENTS_APP_SERVICES_NAME = "EventsApp";
+	public static final String SERVICES_EVENTS_NAME = "EventsServices";
+	public static final String SERVICES_CUSTOMER_NAME = "CustomerServices";
+	public static final String SERVICES_USER_NAME = "UserServices";
+
+	public static final String BEAN_ID_EVENTS_SERVICES_IMPL = "EventsServiceImpl";
+	public static final String BEAN_ID_CUSTOMER_SERVICES_IMPL = "CustomerServiceImpl";
+	public static final String BEAN_ID_USER_SERVICES_IMPL = "UserServiceImpl";
 
 	public static final List<String> APP_SERVICES_COMMON_SPRING_PROFILES_ACTIVE = new ArrayList<String>();
 

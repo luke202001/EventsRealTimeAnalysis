@@ -46,4 +46,20 @@ public class AppConfigUtil implements EnvironmentAware {
 		return this.environment.getProperty(key, targetType);
 	}
 
+	public boolean containsProperty(String key) {
+		return this.environment.containsProperty(key);
+	}
+
+	public String getServicesWFActivitiesCSV(String processorContext, String processorName) {
+
+		String wfActivitiesCSVPropBaseKey = processorContext + ".workflows";
+
+		String wfActivitiesCSVPropKey = wfActivitiesCSVPropBaseKey + "." + processorName;
+		if (!this.environment.containsProperty(wfActivitiesCSVPropKey)) {
+			wfActivitiesCSVPropKey = wfActivitiesCSVPropBaseKey;
+		}
+
+		return this.environment.getProperty(wfActivitiesCSVPropKey);
+	}
+
 }

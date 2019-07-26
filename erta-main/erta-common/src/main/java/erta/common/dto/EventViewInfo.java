@@ -5,9 +5,9 @@ package erta.common.dto;
 
 import java.util.List;
 
-import erta.common.domain.EventInfo;
+import erta.common.entity.event.EventInfo;
 
-public class EventViewInfo extends BaseDTO {
+public class EventViewInfo extends AppCtxResponseInfo {
 
 	private static final long serialVersionUID = 1L;
 
