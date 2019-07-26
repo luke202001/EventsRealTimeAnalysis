@@ -4,12 +4,13 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import erta.common.constants.EntityConstants;
+import erta.common.entity.BaseEntity;
 import erta.common.services.event.AppService;
 import erta.common.wf.api.WFCtxInfo;
 import erta.common.wf.api.WFResult;
 import erta.common.wf.api.WFTask;
 
-public class CRUDWFTaskBaseService<T extends WFCtxInfo> implements WFTask<T>, AppService<T> {
+public class CRUDWFTaskBaseService<T extends WFCtxInfo, E extends BaseEntity> implements WFTask<T>, AppService<T> {
 
 	private static final Logger LOGGER = LoggerFactory.getLogger(CRUDWFTaskBaseService.class);
 
@@ -70,7 +71,6 @@ public class CRUDWFTaskBaseService<T extends WFCtxInfo> implements WFTask<T>, Ap
 	@Override
 	public WFResult get(T x) {
 		LOGGER.debug("Enter & Exit");
-
 		return WFResult.NOT_PROCESSED;
 	}
 

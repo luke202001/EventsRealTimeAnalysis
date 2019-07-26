@@ -6,13 +6,14 @@ import org.springframework.stereotype.Service;
 
 import erta.common.constants.AppServiceConstants;
 import erta.common.dto.EventViewInfo;
-import erta.common.services.event.EventService;
+import erta.common.entity.event.EventInfo;
+import erta.common.services.event.AppService;
 import erta.common.wf.api.WFCtxInfo;
 import erta.common.wf.api.WFResult;
 import erta.common.wf.service.CRUDWFTaskBaseService;
 
 @Service(AppServiceConstants.BEAN_ID_EVENTS_SERVICES_IMPL)
-public class EventsServiceImpl extends CRUDWFTaskBaseService<WFCtxInfo> implements EventService<WFCtxInfo> {
+public class EventsServiceImpl extends CRUDWFTaskBaseService<WFCtxInfo, EventInfo> implements AppService<WFCtxInfo> {
 
 	private static final Logger LOGGER = LoggerFactory.getLogger(EventsServiceImpl.class);
 
