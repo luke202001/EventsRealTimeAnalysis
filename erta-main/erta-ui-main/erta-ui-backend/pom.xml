@@ -38,4 +38,118 @@
 			<scope>test</scope>
 		</dependency>
 	</dependencies>
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-maven-plugin</artifactId>
+				<configuration>
+					<mainClass>eta.usermgmt.services.UserServicesMain</mainClass>
+				</configuration>
+				<executions>
+					<execution>
+						<goals>
+							<goal>repackage</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+		</plugins>
+	</build>
+	<profiles>
+		<profile>
+			<id>ERTA-Build-Docker-All</id>
+			<activation>
+				<activeByDefault>false</activeByDefault>
+			</activation>
+			<build>
+				<plugins>
+					<plugin>
+						<groupId>org.apache.maven.plugins</groupId>
+						<artifactId>maven-dependency-plugin</artifactId>
+						<executions>
+							<execution>
+								<id>copy-dependencies</id>
+								<phase>package</phase>
+								<goals>
+									<goal>copy-dependencies</goal>
+								</goals>
+								<configuration>
+									<excludeScope>provided</excludeScope>
+									<excludeArtifactIds>junit</excludeArtifactIds>
+									<outputDirectory>${project.build.directory}/deploy/${project.name}/libs</outputDirectory>
+								</configuration>
+							</execution>
+						</executions>
+					</plugin>
+					<plugin>
+						<groupId>org.apache.maven.plugins</groupId>
+						<artifactId>maven-antrun-plugin</artifactId>
+						<executions>
+							<execution>
+								<id>copy-this-project-jar-to-deploy</id>
+								<phase>install</phase>
+								<configuration>
+									<tasks>
+										<mkdir
+											dir="${project.build.directory}/deploy/${project.name}/jars" />
+										<copy
+											file="${project.build.directory}/${project.name}-0.0.1-SNAPSHOT.jar"
+											todir="${project.build.directory}/deploy/${project.name}/jars/"
+											overwrite="true" />
+
+										<mkdir dir="${project.build.directory}/deploy/config" />
+										<copy todir="${project.build.directory}/deploy/config">
+											<fileset
+												dir="${project.parent.basedir}/../erta-global-config/src/main/resources/"
+												includes="**" />
+										</copy>
+
+									</tasks>
+								</configuration>
+								<goals>
+									<goal>run</goal>
+								</goals>
+							</execution>
+						</executions>
+					</plugin>
+
+					<!-- https://www.ivankrizsan.se/2017/02/14/packaging-a-java-application-in-a-docker-image-with-maven/ -->
+
+					<!-- Remove any existing Docker image with the image name and image 
+						tag (project version) configured in the properties. -->
+					<plugin>
+						<groupId>com.spotify</groupId>
+						<artifactId>dockerfile-maven-plugin</artifactId>
+						<version>1.4.10</version>
+						<executions>
+							<execution>
+								<id>create-docker-image</id>
+								<phase>install</phase>
+								<goals>
+									<goal>build</goal>
+								</goals>
+								<configuration>
+									<dockerfile.build.noCache>true</dockerfile.build.noCache>
+									<dockerfile.build.pullNewerImage>true</dockerfile.build.pullNewerImage>
+									<dockerfile.tag>latest</dockerfile.tag>
+									<dockerfile.repository>${project.name}</dockerfile.repository>
+
+									<noCache>true</noCache>
+									<pullNewerImage>true</pullNewerImage>
+									<tag>latest</tag>
+									<repository>erta/${project.name}</repository>
+									<buildArgs>
+										<THIS_MODULE_NAME>${project.name}</THIS_MODULE_NAME>
+										<JAR_FILE>${project.build.finalName}.jar</JAR_FILE>
+									</buildArgs>
+									<verbose>true</verbose>
+								</configuration>
+							</execution>
+						</executions>
+					</plugin>
+				</plugins>
+			</build>
+		</profile>
+	</profiles>
 </project>
