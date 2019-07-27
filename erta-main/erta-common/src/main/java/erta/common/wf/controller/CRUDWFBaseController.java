@@ -12,10 +12,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import erta.common.config.AppConfigUtil;
 import erta.common.dto.AppCtxResponseInfo;
 import erta.common.dto.EntityWFCtxInfo;
-import erta.common.entity.event.EventInfo;
+import erta.common.entity.BaseEntity;
 import erta.common.wf.WFProcessor;
 
-public class CRUDWFBaseController extends WFProcessor<EntityWFCtxInfo> {
+public class CRUDWFBaseController<C extends EntityWFCtxInfo, E extends BaseEntity> extends WFProcessor<C> {
 
 	private static final Logger LOGGER = LoggerFactory.getLogger(CRUDWFBaseController.class);
 
@@ -28,58 +28,61 @@ public class CRUDWFBaseController extends WFProcessor<EntityWFCtxInfo> {
 		this.processorContext = processorContext;
 	}
 
+	@SuppressWarnings("unchecked")
 	@PostMapping(path = "/save")
-	public ResponseEntity<Long> saveEventInfo(@RequestBody EventInfo eventInfo) {
+	public ResponseEntity<Long> saveEntityInfo(@RequestBody E entityInfo) {
 
-		EntityWFCtxInfo ctxInfo = EntityWFCtxInfo.buildtCreateCRUDTypeInstance(eventInfo);
+		EntityWFCtxInfo ctxInfo = EntityWFCtxInfo.buildtCreateCRUDTypeInstance(entityInfo);
 
-		super.executeWFTasks(this.processorContext, ctxInfo.getEntityCRUDType(), ctxInfo);
+		super.executeWFTasks(this.processorContext, ctxInfo.getEntityCRUDType(), (C) ctxInfo);
 
 		return ResponseEntity.ok().body(ctxInfo.getEntityId());
 	}
 
+	@SuppressWarnings("unchecked")
 	@PostMapping(path = "/update")
-	public ResponseEntity<Long> updateEventInfo(@RequestBody EventInfo eventInfo) {
+	public ResponseEntity<Long> updateEntityInfo(@RequestBody E entityInfo) {
 
-		EntityWFCtxInfo ctxInfo = EntityWFCtxInfo.buildUpdateCRUDTypeInstance(eventInfo);
+		EntityWFCtxInfo ctxInfo = EntityWFCtxInfo.buildUpdateCRUDTypeInstance(entityInfo);
 
-		super.executeWFTasks(this.processorContext, ctxInfo.getEntityCRUDType(), ctxInfo);
+		super.executeWFTasks(this.processorContext, ctxInfo.getEntityCRUDType(), (C) ctxInfo);
 
 		return ResponseEntity.ok().body(ctxInfo.getEntityId());
 	}
 
+	@SuppressWarnings("unchecked")
 	@PostMapping(path = "/delete/{id}")
-	public ResponseEntity<Long> deleteEventInfo(@PathVariable Long entityInfoId) {
+	public ResponseEntity<Long> deleteEntityInfo(@PathVariable Long entityInfoId) {
 
 		EntityWFCtxInfo ctxInfo = EntityWFCtxInfo.buildDeleteCRUDTypeInstance(entityInfoId);
 
-		super.executeWFTasks(this.processorContext, ctxInfo.getEntityCRUDType(), ctxInfo);
+		super.executeWFTasks(this.processorContext, ctxInfo.getEntityCRUDType(), (C) ctxInfo);
 
 		return ResponseEntity.ok().body(ctxInfo.getEntityId());
 	}
 
+	@SuppressWarnings("unchecked")
 	@RequestMapping(path = "/get/{id}")
-	public ResponseEntity<AppCtxResponseInfo> getEventInfo(@PathVariable("id") Long entityInfoId) {
+	public ResponseEntity<AppCtxResponseInfo> getEntityInfo(@PathVariable("id") Long entityInfoId) {
 		LOGGER.debug("Enter");
 
 		EntityWFCtxInfo ctxInfo = EntityWFCtxInfo.buildGetCRUDTypeInstance(entityInfoId);
 
-		super.executeWFTasks(this.processorContext, ctxInfo.getEntityCRUDType(), ctxInfo);
+		super.executeWFTasks(this.processorContext, ctxInfo.getEntityCRUDType(), (C) ctxInfo);
 
 		LOGGER.debug("Exit");
 		return ResponseEntity.ok().body(ctxInfo.getEntityViewInfo());
 	}
 
+	@SuppressWarnings("unchecked")
 	@RequestMapping(path = "/getall")
-	public ResponseEntity<AppCtxResponseInfo> getAllEventInfos() {
+	public ResponseEntity<AppCtxResponseInfo> getAllEntityInfos() {
 
 		EntityWFCtxInfo ctxInfo = EntityWFCtxInfo.buildGetAllCRUDTypeInstance();
 
-		super.executeWFTasks(this.processorContext, ctxInfo.getEntityCRUDType(), ctxInfo);
+		super.executeWFTasks(this.processorContext, ctxInfo.getEntityCRUDType(), (C) ctxInfo);
 
 		return ResponseEntity.ok().body(ctxInfo.getEntityViewInfo());
 	}
-
-	
 
 }
