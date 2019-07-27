@@ -12,6 +12,7 @@ import { HomeLayoutComponent } from './controller/user/home-layout/home-layout.c
 import { LoginComponent } from './controller/user/login/login.component';
 import { NavigationComponent } from './controller/user/navigation/navigation.component';
 import { ToolbarComponent } from './controller/common/toolbar/toolbar.component';
+import { SidenavModule } from './modules/sidenav/sidenav.module';
 
 @NgModule({
   declarations: [
@@ -34,7 +35,8 @@ import { ToolbarComponent } from './controller/common/toolbar/toolbar.component'
     MatButtonModule,
     MatIconModule,
     MatCardModule,
-    MatFormFieldModule
+    MatFormFieldModule,
+    SidenavModule
   ],
   providers: [],
   bootstrap: [AppComponent]
