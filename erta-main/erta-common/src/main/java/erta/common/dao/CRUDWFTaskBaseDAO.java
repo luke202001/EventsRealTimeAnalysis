@@ -27,7 +27,7 @@ public interface CRUDWFTaskBaseDAO<C extends WFCtxInfo, E extends BaseEntity, R 
 	default WFResult executeTask(C wfCtxInfo) {
 		LOGGER.debug("Enter EntityCRUDType " + wfCtxInfo.getEntityCRUDType());
 
-		WFResult result = WFResult.NOT_PROCESSED;
+		WFResult result = WFResult.SUCCESS;
 		EntityViewInfo<E> entityViewInfo = new EntityViewInfo<E>();
 
 		switch (wfCtxInfo.getEntityCRUDType()) {
@@ -36,22 +36,17 @@ public interface CRUDWFTaskBaseDAO<C extends WFCtxInfo, E extends BaseEntity, R 
 			E savedEntity = this.save((E) wfCtxInfo.getEntityInfo());
 			wfCtxInfo.addEntityInfo(savedEntity);
 
-			result = WFResult.SUCCESS;
-
 			break;
 		case EntityConstants.ENTITY_TRANSAC_TYPE_UPDATE:
 
 			E updatedEntity = this.save((E) wfCtxInfo.getEntityInfo());
 			wfCtxInfo.addEntityInfo(updatedEntity);
 
-			result = WFResult.SUCCESS;
-
 			break;
 		case EntityConstants.ENTITY_TRANSAC_TYPE_DELETE:
 
 			this.delete((E) wfCtxInfo.getEntityInfo());
 
-			result = WFResult.SUCCESS;
 			break;
 		case EntityConstants.ENTITY_TRANSAC_TYPE_GET:
 
@@ -63,7 +58,6 @@ public interface CRUDWFTaskBaseDAO<C extends WFCtxInfo, E extends BaseEntity, R 
 				entityViewInfo.setEventInfo(dbEntity);
 			}
 
-			result = WFResult.SUCCESS;
 			break;
 		case EntityConstants.ENTITY_TRANSAC_TYPE_GET_ALL:
 
@@ -73,15 +67,15 @@ public interface CRUDWFTaskBaseDAO<C extends WFCtxInfo, E extends BaseEntity, R 
 			allRows.forEach(allEntities::add);
 
 			entityViewInfo.setEventInfos(allEntities);
-
 			wfCtxInfo.addEntityViewInfo(entityViewInfo);
-
-			result = WFResult.SUCCESS;
 
 			break;
 		default:
+			result = WFResult.NOT_PROCESSED;
 			break;
 		}
+
+		entityViewInfo.setResult(result.getResult());
 
 		wfCtxInfo.addEntityViewInfo(entityViewInfo);
 

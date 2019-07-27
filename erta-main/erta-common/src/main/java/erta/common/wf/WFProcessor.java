@@ -24,7 +24,7 @@ public class WFProcessor<T extends WFCtxInfo> {
 
 	@SuppressWarnings("unchecked")
 	protected void executeWFTasks(String processorContext, String processorName, T ctxInfo) {
-		LOGGER.debug("Enter");
+		LOGGER.debug("Enter processorContext " + processorContext + " processorName " + processorName);
 
 		populdateProcessContextDetails(ctxInfo);
 

@@ -8,6 +8,7 @@ import erta.common.dto.AppCtxRequestInfo;
 import erta.common.dto.AppCtxResponseInfo;
 import erta.common.dto.EntityViewInfo;
 import erta.common.entity.BaseEntity;
+import erta.common.entity.user.UserInfo;
 
 public class WFCtxInfo extends AppCtxRequestInfo implements Serializable {
 
@@ -21,6 +22,8 @@ public class WFCtxInfo extends AppCtxRequestInfo implements Serializable {
 	public static final String KEY_CTX_BASE_ENTITY_CRUD_TYPE = "CTX_BASE_ENTITY_CRUD_TYPE";
 	public static final String KEY_CTX_MIDDLE_WARE_SERVER_URL = "CTX_MIDDLE_WARE_SERVER_URL";
 	public static final String KEY_PROCESS_CONTEXT_NAME = "PROCESS_CONTEXT_NAME";
+	public static final String KEY_CTX_USER_ID = "CTX_USER_ID";
+	public static final String KEY_CTX_USER_INFO_OBJ = "CTX_USER_INFO_OBJ";
 
 	public WFCtxInfo() {
 	}
@@ -120,6 +123,22 @@ public class WFCtxInfo extends AppCtxRequestInfo implements Serializable {
 
 	public String getProcessContextName() {
 		return (String) this.getCtxData(KEY_PROCESS_CONTEXT_NAME);
+	}
+
+	public void addCtxUserId(Long ctxUserId) {
+		this.ctxData.put(KEY_CTX_USER_ID, ctxUserId);
+	}
+
+	public Long getCtxUserId() {
+		return (Long) this.ctxData.get(KEY_CTX_USER_ID);
+	}
+
+	public void addCtxUserInfoObj(UserInfo ctxUserInfoObj) {
+		this.ctxData.put(KEY_CTX_USER_INFO_OBJ, ctxUserInfoObj);
+	}
+
+	public UserInfo getCtxUserInfoObj() {
+		return (UserInfo) this.ctxData.get(KEY_CTX_USER_INFO_OBJ);
 	}
 
 }
