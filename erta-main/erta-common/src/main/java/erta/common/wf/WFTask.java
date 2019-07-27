@@ -1,7 +1,7 @@
 /**
  * 
  */
-package erta.common.wf.api;
+package erta.common.wf;
 
 public interface WFTask<T extends WFCtxInfo> {
 

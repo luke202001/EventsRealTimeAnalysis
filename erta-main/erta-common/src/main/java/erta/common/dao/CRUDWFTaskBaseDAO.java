@@ -1,4 +1,4 @@
-package erta.common.wf.dao;
+package erta.common.dao;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -9,13 +9,12 @@ import org.slf4j.LoggerFactory;
 import org.springframework.data.repository.NoRepositoryBean;
 
 import erta.common.constants.EntityConstants;
-import erta.common.dao.AppCrudDAO;
 import erta.common.dto.AppCtxResponseInfo;
 import erta.common.dto.EntityViewInfo;
 import erta.common.entity.BaseEntity;
-import erta.common.wf.api.WFCtxInfo;
-import erta.common.wf.api.WFResult;
-import erta.common.wf.api.WFTask;
+import erta.common.wf.WFCtxInfo;
+import erta.common.wf.WFResult;
+import erta.common.wf.WFTask;
 
 @NoRepositoryBean
 public interface CRUDWFTaskBaseDAO<C extends WFCtxInfo, E extends BaseEntity, R extends AppCtxResponseInfo>

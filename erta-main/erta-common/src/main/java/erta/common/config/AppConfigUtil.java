@@ -3,8 +3,10 @@ package erta.common.config;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.EnvironmentAware;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.env.Environment;
+import org.springframework.web.client.RestTemplate;
 
 @Configuration
 public class AppConfigUtil implements EnvironmentAware {
@@ -60,6 +62,27 @@ public class AppConfigUtil implements EnvironmentAware {
 		}
 
 		return this.environment.getProperty(wfActivitiesCSVPropKey);
+	}
+
+	public String getUi2ServicesDelegateRestUrl(String processorContext, String processName) {
+
+		String ui2ServicesRestUrlPropKey = processorContext + "." + processName + ".ui2services.delegate.resturl";
+
+		if (this.environment.containsProperty(ui2ServicesRestUrlPropKey)) {
+			return this.environment.getProperty(ui2ServicesRestUrlPropKey);
+		}
+
+		ui2ServicesRestUrlPropKey = processorContext + ".*.ui2services.delegate.resturl";
+		if (this.environment.containsProperty(ui2ServicesRestUrlPropKey)) {
+			return this.environment.getProperty(ui2ServicesRestUrlPropKey) + "/" + processName;
+		}
+
+		return null;
+	}
+
+	@Bean
+	public RestTemplate createRestTemplate() {
+		return new RestTemplate();
 	}
 
 }

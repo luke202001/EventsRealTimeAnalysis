@@ -1,6 +1,4 @@
-package erta.common.wf.util;
-
-import erta.common.wf.api.WFResult;
+package erta.common.wf;
 
 public class WFUtil {
 

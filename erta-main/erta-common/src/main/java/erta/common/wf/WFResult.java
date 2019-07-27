@@ -1,4 +1,4 @@
-package erta.common.wf.api;
+package erta.common.wf;
 
 import java.io.Serializable;
 

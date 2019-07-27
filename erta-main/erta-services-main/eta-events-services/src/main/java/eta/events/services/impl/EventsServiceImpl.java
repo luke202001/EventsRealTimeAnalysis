@@ -8,12 +8,12 @@ import erta.common.constants.AppServiceConstants;
 import erta.common.dto.EntityViewInfo;
 import erta.common.entity.event.EventInfo;
 import erta.common.services.AppService;
-import erta.common.wf.api.WFCtxInfo;
-import erta.common.wf.api.WFResult;
-import erta.common.wf.service.CRUDWFTaskBaseService;
+import erta.common.wf.WFCtxInfo;
+import erta.common.wf.WFResult;
+import erta.common.wf.tasks.CrudWFTaskBaseService;
 
 @Service(AppServiceConstants.BEAN_ID_EVENTS_SERVICES_IMPL)
-public class EventsServiceImpl extends CRUDWFTaskBaseService<WFCtxInfo, EventInfo> implements AppService<WFCtxInfo> {
+public class EventsServiceImpl extends CrudWFTaskBaseService<WFCtxInfo, EventInfo> implements AppService<WFCtxInfo> {
 
 	private static final Logger LOGGER = LoggerFactory.getLogger(EventsServiceImpl.class);
 

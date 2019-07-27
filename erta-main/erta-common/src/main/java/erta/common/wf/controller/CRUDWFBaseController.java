@@ -11,9 +11,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import erta.common.config.AppConfigUtil;
 import erta.common.dto.AppCtxResponseInfo;
+import erta.common.dto.EntityWFCtxInfo;
 import erta.common.entity.event.EventInfo;
-import erta.common.wf.api.WFProcessor;
-import erta.common.wf.dto.EntityWFCtxInfo;
+import erta.common.wf.WFProcessor;
 
 public class CRUDWFBaseController extends WFProcessor<EntityWFCtxInfo> {
 
@@ -80,12 +80,6 @@ public class CRUDWFBaseController extends WFProcessor<EntityWFCtxInfo> {
 		return ResponseEntity.ok().body(ctxInfo.getEntityViewInfo());
 	}
 
-	public String getProcessorContext() {
-		return processorContext;
-	}
-
-	public void setProcessorContext(String processorContext) {
-		this.processorContext = processorContext;
-	}
+	
 
 }

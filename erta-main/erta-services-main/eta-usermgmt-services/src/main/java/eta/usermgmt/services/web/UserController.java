@@ -13,5 +13,7 @@ public class UserController extends CRUDWFBaseController {
 	public UserController() {
 		super(AppServiceConstants.SERVICES_USER_NAME);
 	}
+	
+	
 
 }

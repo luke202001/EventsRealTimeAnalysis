@@ -1,44 +1,36 @@
-package erta.common.wf.service;
+package erta.common.wf;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import erta.common.constants.EntityConstants;
-import erta.common.entity.BaseEntity;
 import erta.common.services.AppService;
-import erta.common.wf.api.WFCtxInfo;
-import erta.common.wf.api.WFResult;
-import erta.common.wf.api.WFTask;
 
-public class CRUDWFTaskBaseService<T extends WFCtxInfo, E extends BaseEntity> implements WFTask<T>, AppService<T> {
+public interface CrudWFTask<T extends WFCtxInfo> extends WFTask<T>, AppService<T> {
 
-	private static final Logger LOGGER = LoggerFactory.getLogger(CRUDWFTaskBaseService.class);
+	public static final Logger LOGGER = LoggerFactory.getLogger(CrudWFTask.class);
 
-	public CRUDWFTaskBaseService() {
-	}
-
-	@Override
-	public WFResult executeTask(T wfCtxInfo) {
+	default WFResult executeTask(T wfCtxInfo) {
 		LOGGER.debug("Enter EntityCRUDType " + wfCtxInfo.getEntityCRUDType());
 
 		WFResult result = null;
 
 		switch (wfCtxInfo.getEntityCRUDType()) {
 		case EntityConstants.ENTITY_TRANSAC_TYPE_CREATE:
-			result = this.create(wfCtxInfo);
+			result = (WFResult) this.create(wfCtxInfo);
 			break;
 		case EntityConstants.ENTITY_TRANSAC_TYPE_UPDATE:
-			result = this.update(wfCtxInfo);
+			result = (WFResult) this.update(wfCtxInfo);
 			break;
 		case EntityConstants.ENTITY_TRANSAC_TYPE_DELETE:
-			result = this.delete(wfCtxInfo);
+			result = (WFResult) this.delete(wfCtxInfo);
 			break;
 		case EntityConstants.ENTITY_TRANSAC_TYPE_GET:
 			LOGGER.debug("EntityCRUDType get matched");
-			result = this.get(wfCtxInfo);
+			result = (WFResult) this.get(wfCtxInfo);
 			break;
 		case EntityConstants.ENTITY_TRANSAC_TYPE_GET_ALL:
-			result = this.getAll(wfCtxInfo);
+			result = (WFResult) this.getAll(wfCtxInfo);
 			break;
 		default:
 			LOGGER.debug("EntityCRUDType default matched so WFResult.NOT_PROCESSED");
@@ -51,31 +43,31 @@ public class CRUDWFTaskBaseService<T extends WFCtxInfo, E extends BaseEntity> im
 	}
 
 	@Override
-	public WFResult create(T x) {
+	default WFResult create(T x) {
 		LOGGER.debug("Enter & Exit");
 		return WFResult.NOT_PROCESSED;
 	}
 
 	@Override
-	public WFResult update(T x) {
+	default WFResult update(T x) {
 		LOGGER.debug("Enter & Exit");
 		return WFResult.NOT_PROCESSED;
 	}
 
 	@Override
-	public WFResult delete(T x) {
+	default WFResult delete(T x) {
 		LOGGER.debug("Enter & Exit");
 		return WFResult.NOT_PROCESSED;
 	}
 
 	@Override
-	public WFResult get(T x) {
+	default WFResult get(T x) {
 		LOGGER.debug("Enter & Exit");
 		return WFResult.NOT_PROCESSED;
 	}
 
 	@Override
-	public WFResult getAll(T x) {
+	default WFResult getAll(T x) {
 		LOGGER.debug("Enter & Exit");
 		return WFResult.NOT_PROCESSED;
 	}

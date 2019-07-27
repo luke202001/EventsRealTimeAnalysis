@@ -1,9 +1,9 @@
-package erta.common.wf.dto;
+package erta.common.dto;
 
 import erta.common.constants.EntityConstants;
 import erta.common.entity.BaseEntity;
 import erta.common.entity.event.EventInfo;
-import erta.common.wf.api.WFCtxInfo;
+import erta.common.wf.WFCtxInfo;
 
 public class EntityWFCtxInfo extends WFCtxInfo {
 

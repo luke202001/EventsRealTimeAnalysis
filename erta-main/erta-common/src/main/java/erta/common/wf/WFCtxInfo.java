@@ -1,4 +1,4 @@
-package erta.common.wf.api;
+package erta.common.wf;
 
 import java.io.Serializable;
 import java.util.HashMap;
@@ -19,6 +19,8 @@ public class WFCtxInfo extends AppCtxRequestInfo implements Serializable {
 	public static final String KEY_CTX_BASE_ENTITY_VIEW_INFO = "CTX_BASE_ENTITY_VIEW_INFO";
 	public static final String KEY_CTX_BASE_ENTITY_ID = "CTX_BASE_ENTITY_INFO_ID";
 	public static final String KEY_CTX_BASE_ENTITY_CRUD_TYPE = "CTX_BASE_ENTITY_CRUD_TYPE";
+	public static final String KEY_CTX_MIDDLE_WARE_SERVER_URL = "CTX_MIDDLE_WARE_SERVER_URL";
+	public static final String KEY_PROCESS_CONTEXT_NAME = "PROCESS_CONTEXT_NAME";
 
 	public WFCtxInfo() {
 	}
@@ -37,6 +39,10 @@ public class WFCtxInfo extends AppCtxRequestInfo implements Serializable {
 
 	public void addCtxData(String key, BaseEntity val) {
 		this.putCtxData(key, val);
+	}
+
+	public void addAllCtxData(Map<String, Object> ctxAddlData) {
+		this.ctxData.putAll(ctxAddlData);
 	}
 
 	public void addEntityInfo(BaseEntity val) {
@@ -98,6 +104,22 @@ public class WFCtxInfo extends AppCtxRequestInfo implements Serializable {
 
 	public boolean containsCtxData(String key) {
 		return this.ctxData.containsKey(key);
+	}
+
+	public void addMiddlewareServerURL(String middlewareServerURL) {
+		this.putCtxData(KEY_CTX_MIDDLE_WARE_SERVER_URL, middlewareServerURL);
+	}
+
+	public String getMiddlewareServerURL() {
+		return (String) this.getCtxData(KEY_CTX_MIDDLE_WARE_SERVER_URL);
+	}
+
+	public void addProcessContextName(String processContextName) {
+		this.putCtxData(KEY_PROCESS_CONTEXT_NAME, processContextName);
+	}
+
+	public String getProcessContextName() {
+		return (String) this.getCtxData(KEY_PROCESS_CONTEXT_NAME);
 	}
 
 }
