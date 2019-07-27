@@ -1,18 +1,29 @@
-<div class="container">
-	<div class="row">
-		<div class="col-md-12">
-			<div class="card bg-dark my-5">
-				<div class="card-body">
-					<h2 class="card-title text-center text-white py-3">{{ title }}</h2>
-					<ul class="text-center list-inline py-3">
-						<li class="list-inline-item"><a routerLink="/users"
-							class="btn btn-info">List Users</a></li>
-						<li class="list-inline-item"><a routerLink="/adduser"
-							class="btn btn-info">Add User</a></li>
-					</ul>
-				</div>
-			</div>
-			<router-outlet></router-outlet>
-		</div>
-	</div>
-</div>
+<mat-toolbar color="primary">
+  <mat-toolbar-row>
+    <button mat-icon-button>
+      <mat-icon (click)="sidenav.toggle()">menu</mat-icon>
+    </button>
+    <h1>Events Realtime Analysis</h1>
+		<span class="menu-spacer">&nbsp;&nbsp;&nbsp;</span>
+		<span style="font-size: 12px;">Events Realtime Analysis helps you easily manage your events</span>
+  </mat-toolbar-row>
+</mat-toolbar>
+<mat-sidenav-container>
+  <mat-sidenav #sidenav>
+    <mat-nav-list>
+      <a mat-list-item [routerLink]="'/activities'"> Events </a>
+      <a mat-list-item [routerLink]="'/create-activity'"> Create Events </a>
+      <a mat-list-item [routerLink]="'/accounts'"> Users </a>
+      <a mat-list-item [routerLink]="'/create-account'"> Create User </a>
+      <a mat-list-item [routerLink]="'/contacts'"> Customers </a>
+      <a mat-list-item [routerLink]="'/create-contact'"> Create Customer </a>
+      <a mat-list-item (click)="sidenav.toggle()" href="" mat-list-item>Close</a>
+    </mat-nav-list>
+  </mat-sidenav>
+  <mat-sidenav-content>
+    <div style="height: 88vh;">
+      <router-outlet></router-outlet>
+    </div>
+  </mat-sidenav-content>
+</mat-sidenav-container>
+
